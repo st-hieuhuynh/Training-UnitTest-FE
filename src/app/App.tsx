@@ -16,26 +16,28 @@ import appReducer from './app.reducers';
 import AppSuspense from './AppSuspense';
 
 const middleware = createSagaMiddleware();
-const store = createStore(
-  appReducer,
-  applyMiddleware(middleware, logger)
-);
+export const store = createStore(appReducer, applyMiddleware(middleware, logger));
 
 middleware.run(appMiddleware);
 
 const root = createRoot(document.getElementById('root'));
-root.render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <AppSuspense fallback={<></>}>
-        <Header />
-      </AppSuspense>
-      <AppSuspense fallback={<></>}>
-        <RouterOutlet routes={appRoutes} />
-      </AppSuspense>
-      <AppSuspense fallback={<></>}>
-        <Footer />
-      </AppSuspense>
-    </BrowserRouter>
-  </Provider>
-);
+const App = () => {
+  return (
+    <Provider store={store}>
+      <BrowserRouter>
+        <AppSuspense fallback={<></>}>
+          <Header />
+        </AppSuspense>
+        <AppSuspense fallback={<></>}>
+          <RouterOutlet routes={appRoutes} />
+        </AppSuspense>
+        <AppSuspense fallback={<></>}>
+          <Footer />
+        </AppSuspense>
+      </BrowserRouter>
+    </Provider>
+  );
+};
+root.render(<App />);
+
+export default App;
