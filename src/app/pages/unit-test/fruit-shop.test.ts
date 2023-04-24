@@ -8,15 +8,27 @@ describe('FruitShop', () => {
       apple: {
         price: 5000,
         discounts: [
-          [1, 5],
-          [2, 10]
+          {
+            quantityApply: 1,
+            discount: 5
+          },
+          {
+            quantityApply: 2,
+            discount: 10
+          }
         ]
       },
       banana: {
         price: 3000,
         discounts: [
-          [1, 5],
-          [3, 10]
+          {
+            quantityApply: 1,
+            discount: 5
+          },
+          {
+            quantityApply: 3,
+            discount: 10
+          }
         ]
       }
     });
@@ -26,14 +38,26 @@ describe('FruitShop', () => {
 
   test('addProduct', () => {
     shop.addProduct('orange', 6000, [
-      [4, 15],
-      [8, 25],
+      {
+        quantityApply: 4,
+        discount: 15
+      },
+      {
+        quantityApply: 8,
+        discount: 25
+      }
     ]);
     expect(shop.products).toHaveProperty('orange');
     expect(shop.products['orange'].price).toEqual(6000);
     expect(shop.products['orange'].discounts).toEqual([
-      [4, 15],
-      [8, 25],
+      {
+        quantityApply: 4,
+        discount: 15
+      },
+      {
+        quantityApply: 8,
+        discount: 25
+      }
     ]);
   });
 
@@ -44,14 +68,26 @@ describe('FruitShop', () => {
 
   test('updateProduct', () => {
     shop.updateProduct('apple', 5500, [
-      [3, 15],
-      [6, 25],
+      {
+        quantityApply: 3,
+        discount: 15
+      },
+      {
+        quantityApply: 6,
+        discount: 25
+      }
     ]);
     expect(shop.products['apple']).toMatchObject({
       price: 5500,
       discounts: [
-        [3, 15],
-        [6, 25],
+        {
+          quantityApply: 3,
+          discount: 15
+        },
+        {
+          quantityApply: 6,
+          discount: 25
+        }
       ],
     });
   });

@@ -2,7 +2,10 @@ export class FruitShop {
   products: {
     [name: string]: {
       price: number;
-      discounts: [number, number][];
+      discounts: {
+        quantityApply: number;
+        discount: number;
+      }[];
     };
   };
   cart: {
@@ -61,9 +64,9 @@ export class FruitShop {
   getDiscount(discounts, qty) {
     let discount = 0;
     for (let i = discounts.length - 1; i >= 0; i--) {
-      const [threshold, value] = discounts[i];
-      if (qty >= threshold) {
-        discount = Math.max(discount, value);
+      const { quantityApply, discount: discountValue } = discounts[i];
+      if (qty >= quantityApply) {
+        discount = Math.max(discount, discountValue);
         break;
       }
     }
